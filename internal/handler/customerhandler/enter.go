@@ -32,6 +32,11 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 					Path:    "/customer/deleteCustomerById",
 					Handler: DeleteCustomerByIdHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/customer/getSubordinate",
+					Handler: GetSubordinateHandler(serverCtx),
+				},
 			}...,
 		),
 	)

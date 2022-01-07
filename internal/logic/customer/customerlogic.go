@@ -100,3 +100,30 @@ func (c *CustomerLogic) DeleteCustomer(req types.Customers) (*types.Result, erro
 		Msg:  "删除成功",
 	}, nil
 }
+func (c *CustomerLogic) GetSubordinate(req types.CustomerList) (*types.Result, error) {
+	if req.Id <= 0 {
+		// global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "参数错误",
+		}, nil
+	}
+	list, total, err := model.GetCustomerList(req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "获取失败",
+		}, nil
+	}
+	return &types.Result{
+		Code: 0,
+		Msg:  "获取成功",
+		Data: &types.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		},
+	}, nil
+}
