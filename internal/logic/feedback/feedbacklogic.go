@@ -6,6 +6,7 @@ import (
 	"JHE_admin/internal/types"
 	"JHE_admin/model"
 	"context"
+	"time"
 
 	"github.com/tal-tech/go-zero/core/logx"
 	"go.uber.org/zap"
@@ -90,7 +91,7 @@ func (f *FeedBackLogic) ReadNewFeedBack(req types.FeedBack) (*types.Result, erro
 }
 func (f *FeedBackLogic) DealFeedBack(req types.FeedBack) (*types.Result, error) {
 
-	if err := global.GVA_DB.Model(&types.FeedBack{}).Where("id = ?", req.Id).Update("status", "1").Error; err != nil {
+	if err := global.GVA_DB.Model(&types.FeedBack{}).Where("id = ?", req.Id).Update("status", "1").Update("resolve_time", time.Now()).Error; err != nil {
 		return &types.Result{
 			Code: 7,
 			Msg:  "解决失败",
