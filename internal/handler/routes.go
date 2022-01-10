@@ -18,6 +18,7 @@ import (
 	"JHE_admin/internal/handler/systemhandler"
 	"JHE_admin/internal/handler/customerhandler"
 	"JHE_admin/internal/handler/userhandler"
+	"JHE_admin/internal/handler/billhandler"
 	"JHE_admin/internal/svc"
 	"net/http"
 	"strings"
@@ -41,9 +42,11 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	excelhandler.RegisterHandlersAutocode(engine, serverCtx)
 	simpleuploadhandler.RegisterHandlersAutocode(engine, serverCtx)
 	customerhandler.RegisterHandlersAutocode(engine, serverCtx)
+	customerhandler.RegisterHandlersAutocode1(engine, serverCtx)
 	// equipmenthandler.RegisterHandlersAutocode(engine, serverCtx)
 	// driveschoolhandler.RegisterHandlersAutocode(engine, serverCtx)
 	feedbackhandler.RegisterHandlersAutocode(engine, serverCtx)
+	billhandler.RegisterHandlersAutocode(engine, serverCtx)
 	dirlevel := []string{":1", ":2", ":3", ":4", ":5", ":6", ":7", ":8", ":9", ":10", ":11", ":12", ":13", ":14", ":15"}
 	patern := "/resource/"
 	dirpath := "./resource/"

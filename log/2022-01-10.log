@@ -1,0 +1,20 @@
+[JHE_admin]2022/01/10 - 11:50:45.360	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:133	获取失败!	{"err": "Error 1146: Table 'gva.customer_lists' doesn't exist"}
+[JHE_admin]2022/01/10 - 11:50:45.597	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:133	获取失败!	{"err": "Error 1146: Table 'gva.customer_lists' doesn't exist"}
+[JHE_admin]2022/01/10 - 11:52:18.329	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:133	获取失败!	{"err": "Error 1054: Unknown column 'uid' in 'where clause'"}
+[JHE_admin]2022/01/10 - 11:52:26.296	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:133	获取失败!	{"err": "Error 1054: Unknown column 'uid' in 'where clause'"}
+[JHE_admin]2022/01/10 - 11:52:26.608	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:133	获取失败!	{"err": "Error 1054: Unknown column 'uid' in 'where clause'"}
+[JHE_admin]2022/01/10 - 17:29:18.508	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:153	获取失败!	{"err": "参数错误"}
+[JHE_admin]2022/01/10 - 17:29:18.523	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:153	获取失败!	{"err": "参数错误"}
+[JHE_admin]2022/01/10 - 17:29:18.540	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:153	获取失败!	{"err": "参数错误"}
+[JHE_admin]2022/01/10 - 17:30:26.148	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:153	获取失败!	{"err": "参数错误"}
+[JHE_admin]2022/01/10 - 17:30:26.158	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:153	获取失败!	{"err": "参数错误"}
+[JHE_admin]2022/01/10 - 17:30:26.170	error	D:/MXY/goProgect/JHE_admin/internal/logic/customer/customerlogic.go:153	获取失败!	{"err": "参数错误"}
+[JHE_admin]2022/01/10 - 18:06:50.722	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:06:50.756	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:06:50.767	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:07:05.705	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:07:05.718	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:07:05.732	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:08:03.193	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:08:03.204	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 18:08:03.214	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}

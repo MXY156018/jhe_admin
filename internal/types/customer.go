@@ -23,3 +23,53 @@ type CustomerList struct {
 	Customers
 	Wallet
 }
+
+type CustimerSearch struct {
+	Id        int    `json:"id,omitempty,optional"`
+	Type      string `json:"type,omitempty,optional"`
+	Status    string `json:"status,omitempty,optional"`
+	StartTime string `json:"startTime,optional"`
+	EndTime   string `json:"endTime,optional"`
+	PageInfo
+}
+
+type GameRecord struct {
+	Id         int       `json:"id,omitempty,optional"`
+	Uid        int       `json:"uid,omitempty,optional"`
+	Gameid     int       `json:"gameid,omitempty,optional"`
+	Type       int       `json:"type,optional"`
+	PreBalance float64   `json:"pre_balance,optional"`
+	NowBalance float64   `json:"now_balance,optional"`
+	Win        float64   `json:"win,optional"`
+	Status     int       `json:"status,optional"`
+	Commission float64   `json:"commission,optional"`
+	StartTime  time.Time `json:"start_time,optional"`
+	EndTime    time.Time `json:"end_time,optional"`
+}
+
+type GameRecordList struct {
+	GameRecord
+	PageInfo
+}
+
+type CustomerOperator struct {
+	Id         int       `json:"id,optional"`
+	Uid        int       `json:"uid,optional"`
+	Type       int       `json:"type,optional"`
+	Num        float64   `json:"num,optional"`
+	Balance    float64   `json:"balance,optional"`
+	CreateTime time.Time `json:"create_time,optional"`
+}
+
+type OperateRecord struct {
+	CustomerOperator
+	PageInfo
+}
+
+type BillReq struct {
+	Uid       int    `json:"uid,optional"`
+	Type      int    `json:"type,optional"`
+	StartTime string `json:"start_time,optional"`
+	EndTime   string `json:"end_time,optional"`
+	PageInfo
+}

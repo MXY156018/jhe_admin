@@ -41,3 +41,22 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 		),
 	)
 }
+func RegisterHandlersAutocode1(engine *rest.Server, serverCtx *svc.ServiceContext) {
+	engine.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Jwt, serverCtx.Casbin},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/customer/getGameRecord",
+					Handler: GetCustomerGameRecordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/customer/getOperator",
+					Handler: GetCustomerOperatorHandler(serverCtx),
+				},
+			}...,
+		),
+	)
+}

@@ -25,7 +25,7 @@ func NewCustomerLogic(ctx context.Context, svcCtx *svc.ServiceContext) CustomerL
 	}
 }
 
-func (c *CustomerLogic) GetCustomerList(req types.CustomerList) (*types.Result, error) {
+func (c *CustomerLogic) GetCustomerList(req types.CustimerSearch) (*types.Result, error) {
 	var list []types.CustomerList
 	var total int64
 	list, total, err := model.GetCustomerList(req)
@@ -108,7 +108,47 @@ func (c *CustomerLogic) GetSubordinate(req types.CustomerList) (*types.Result, e
 			Msg:  "参数错误",
 		}, nil
 	}
-	list, total, err := model.GetCustomerList(req)
+	list, total, err := model.GetSubordinateModel(req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "获取失败",
+		}, nil
+	}
+	return &types.Result{
+		Code: 0,
+		Msg:  "获取成功",
+		Data: &types.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		},
+	}, nil
+}
+func (c *CustomerLogic) GetCustomerGameRerord(req types.GameRecordList) (*types.Result, error) {
+	list, total, err := model.GetCustomerGameRecordModel(req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "获取失败",
+		}, nil
+	}
+	return &types.Result{
+		Code: 0,
+		Msg:  "获取成功",
+		Data: &types.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		},
+	}, nil
+}
+func (c *CustomerLogic) GetCustomerOperator(req types.OperateRecord) (*types.Result, error) {
+	list, total, err := model.GetCustomerOperatorModel(req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
 		return &types.Result{

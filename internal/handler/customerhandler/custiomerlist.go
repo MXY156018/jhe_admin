@@ -12,7 +12,7 @@ import (
 
 func CustomerListHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.CustomerList
+		var req types.CustimerSearch
 		if err := utils.Bind(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
@@ -84,6 +84,38 @@ func GetSubordinateHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		}
 		l := customer.NewCustomerLogic(r.Context(), ctx)
 		resp, err := l.GetSubordinate(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func GetCustomerGameRecordHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.GameRecordList
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := customer.NewCustomerLogic(r.Context(), ctx)
+		resp, err := l.GetCustomerGameRerord(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func GetCustomerOperatorHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.OperateRecord
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := customer.NewCustomerLogic(r.Context(), ctx)
+		resp, err := l.GetCustomerOperator(req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

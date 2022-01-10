@@ -29,7 +29,6 @@ func NewMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) MenuLogic {
 
 //GetMenu 获取菜单树
 func (u *MenuLogic) GetMenu(r *http.Request) (*types.Result, error) {
-	println(utils.GetUserAuthorityId(r))
 	if err, menus := model.MenuServiceApp.GetMenuTree(utils.GetUserAuthorityId(r)); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
 		return &types.Result{Code: 7, Msg: "获取失败"}, nil
