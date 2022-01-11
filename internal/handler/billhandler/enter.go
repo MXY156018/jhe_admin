@@ -17,6 +17,16 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 					Path:    "/bill/getBill",
 					Handler: BillHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/bill/getGameBill",
+					Handler: GameBillHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/bill/getDailyBill",
+					Handler: DailyBillHandler(serverCtx),
+				},
 			}...,
 		),
 	)

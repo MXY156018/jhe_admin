@@ -18,3 +18,22 @@
 [JHE_admin]2022/01/10 - 18:08:03.193	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
 [JHE_admin]2022/01/10 - 18:08:03.204	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
 [JHE_admin]2022/01/10 - 18:08:03.214	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Could not find format for \"\""}
+[JHE_admin]2022/01/10 - 22:01:55.201	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:01:55.231	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:02:04.868	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:02:04.913	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:05:49.804	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Error 1054: Unknown column 'customer_operator.num' in 'field list'"}
+[JHE_admin]2022/01/10 - 22:05:49.861	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Error 1054: Unknown column 'customer_operator.num' in 'field list'"}
+[JHE_admin]2022/01/10 - 22:05:49.873	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Error 1054: Unknown column 'customer_operator.num' in 'field list'"}
+[JHE_admin]2022/01/10 - 22:06:09.686	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:06:09.704	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:20:12.661	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:20:12.676	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:20:35.291	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:20:35.306	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:25:38.686	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:25:38.704	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:25:59.114	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"num\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:25:59.138	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"num\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:26:28.523	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"num\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/10 - 22:26:28.545	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"num\": converting NULL to float64 is unsupported"}

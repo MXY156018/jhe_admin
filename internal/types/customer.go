@@ -73,3 +73,9 @@ type BillReq struct {
 	EndTime   string `json:"end_time,optional"`
 	PageInfo
 }
+
+type GameDailyRep struct {
+	Recharge float64 `json:"recharge"`
+	Reward   float64 `json:"reward"`
+	Platform float64 `json:"platform"`
+}
