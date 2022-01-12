@@ -18,6 +18,21 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 					Path:    "/notice/createNotice",
 					Handler: CreateNoticeHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/notice/fleshNotice",
+					Handler: FleshNoticeHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/notice/updateNotice",
+					Handler: UpdateNoticeHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/notice/deleteNoticeByIds",
+					Handler: DeleteNoticeByIdsHandler(serverCtx),
+				},
 			}...,
 		),
 	)
@@ -32,6 +47,11 @@ func RegisterHandlersAutocode1(engine *rest.Server, serverCtx *svc.ServiceContex
 					Method:  http.MethodPost,
 					Path:    "/notice/getNoticeList",
 					Handler: NoticeListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/notice/getNoticeById",
+					Handler: GetNoticeHandler(serverCtx),
 				},
 			}...,
 		),

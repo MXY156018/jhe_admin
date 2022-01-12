@@ -12,6 +12,9 @@ type FeedBack struct {
 	Phone       string     `json:"phone,optional"`
 	Email       string     `json:"email,optional"`
 	Status      string     `json:"status,optional"`
+	Handle      string     `json:"handle,optional"`
+	IsRead      int        `json:"is_read,optional"`
+	UIsRead     int        `json:"u_is_read,optional"`
 }
 type SearchFeedBack struct {
 	Uid       int    `json:"uid,optional"`

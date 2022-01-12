@@ -90,8 +90,7 @@ func (f *FeedBackLogic) ReadNewFeedBack(req types.FeedBack) (*types.Result, erro
 
 }
 func (f *FeedBackLogic) DealFeedBack(req types.FeedBack) (*types.Result, error) {
-
-	if err := global.GVA_DB.Model(&types.FeedBack{}).Where("id = ?", req.Id).Update("status", "1").Update("resolve_time", time.Now()).Error; err != nil {
+	if err := global.GVA_DB.Model(&types.FeedBack{}).Where("id = ?", req.Id).Update("handle", req.Handle).Update("resolve_time", time.Now()).Update("status", "1").Error; err != nil {
 		return &types.Result{
 			Code: 7,
 			Msg:  "解决失败",

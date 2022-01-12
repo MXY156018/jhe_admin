@@ -42,3 +42,67 @@ func CreateNoticeHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		}
 	}
 }
+func GetNoticeHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.Notice
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := noticelogic.NewNoticeLogic(r.Context(), ctx)
+		resp, err := l.GetNotice(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func FleshNoticeHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.Notice
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := noticelogic.NewNoticeLogic(r.Context(), ctx)
+		resp, err := l.FleshNotice(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func UpdateNoticeHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.Notice
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := noticelogic.NewNoticeLogic(r.Context(), ctx)
+		resp, err := l.UpdateNotice(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func DeleteNoticeByIdsHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.Ids
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := noticelogic.NewNoticeLogic(r.Context(), ctx)
+		resp, err := l.DeleteNoticeByIds(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}

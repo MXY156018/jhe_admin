@@ -13,3 +13,7 @@ type NoticePage struct {
 	Notice
 	PageInfo
 }
+
+type Ids struct {
+	Id []int64 `json:"id"`
+}
