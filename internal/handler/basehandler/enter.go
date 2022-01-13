@@ -25,11 +25,7 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 				Path:    "/jwt/jsonInBlacklist",
 				Handler: JsonInBlacklistHandler(serverCtx),
 			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/user/userfeedback",
-				Handler: FeedBackHandler(serverCtx),
-			},
+			
 		},
 	)
 }

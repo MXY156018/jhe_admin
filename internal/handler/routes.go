@@ -20,11 +20,15 @@ import (
 	"JHE_admin/internal/handler/userhandler"
 	"JHE_admin/internal/handler/billhandler"
 	"JHE_admin/internal/handler/noticehandler"
+	"JHE_admin/internal/handler/checkhandler"
 	"JHE_admin/internal/svc"
 	"net/http"
 	"strings"
 
 	"github.com/tal-tech/go-zero/rest"
+
+
+	halluser "JHE_admin/web/hall/handler/userhandler"
 )
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
@@ -50,6 +54,12 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	billhandler.RegisterHandlersAutocode(engine, serverCtx)
 	noticehandler.RegisterHandlersAutocode(engine, serverCtx)
 	noticehandler.RegisterHandlersAutocode1(engine, serverCtx)
+	checkhandler.RegisterHandlersAutocode1(engine, serverCtx)
+
+	//大厅api
+
+	halluser.RegisterHandlersAutocode(engine, serverCtx)
+
 	dirlevel := []string{":1", ":2", ":3", ":4", ":5", ":6", ":7", ":8", ":9", ":10", ":11", ":12", ":13", ":14", ":15"}
 	patern := "/resource/"
 	dirpath := "./resource/"

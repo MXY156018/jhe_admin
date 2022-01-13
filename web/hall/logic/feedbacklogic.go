@@ -1,4 +1,4 @@
-package base
+package logic
 
 import (
 	"JHE_admin/global"
