@@ -1,0 +1,5 @@
+[JHE_admin]2022/01/14 - 11:08:44.110	error	/data/goproject/JHE_admin/internal/logic/bill/billlogic.go:86	查询失败!	{"err": "Error 1054: Unknown column 'create_time' in 'where clause'"}
+[JHE_admin]2022/01/14 - 11:09:39.319	error	/data/goproject/JHE_admin/internal/logic/bill/billlogic.go:86	查询失败!	{"err": "sql: Scan error on column index 0, name \"platform\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/14 - 11:13:04.200	error	/data/goproject/JHE_admin/internal/logic/bill/billlogic.go:86	查询失败!	{"err": "sql: Scan error on column index 0, name \"platform\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/14 - 11:14:35.968	error	/data/goproject/JHE_admin/internal/logic/bill/billlogic.go:86	查询失败!	{"err": "sql: Scan error on column index 0, name \"platform\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/14 - 11:19:07.422	error	/data/goproject/JHE_admin/internal/logic/bill/billlogic.go:86	查询失败!	{"err": "Error 1054: Unknown column 'commisson' in 'field list'"}

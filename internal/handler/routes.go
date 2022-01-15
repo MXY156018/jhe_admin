@@ -29,6 +29,8 @@ import (
 
 
 	halluser "JHE_admin/web/hall/handler/userhandler"
+
+	gameuser "JHE_admin/web/game/handler"
 )
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
@@ -57,9 +59,9 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	checkhandler.RegisterHandlersAutocode1(engine, serverCtx)
 
 	//大厅api
-
 	halluser.RegisterHandlersAutocode(engine, serverCtx)
-
+	//游戏api
+	gameuser.RegisterHandlersAutocode(engine, serverCtx)
 	dirlevel := []string{":1", ":2", ":3", ":4", ":5", ":6", ":7", ":8", ":9", ":10", ":11", ":12", ":13", ":14", ":15"}
 	patern := "/resource/"
 	dirpath := "./resource/"

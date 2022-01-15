@@ -55,7 +55,9 @@ func GetCustomerById(req types.Customers) (types.CustomerList, error) {
 	if err := db.Where("id = ?", req.Id).Find(&user).Error; err != nil {
 		return user, err
 	}
+	userTree := GetUserTree(req.Id)
 
+	GetSubordinateSumRecharge(&user, userTree)
 	return user, nil
 }
 

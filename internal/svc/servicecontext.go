@@ -12,6 +12,7 @@ type ServiceContext struct {
 	OperateRecord rest.Middleware
 	Jwt           rest.Middleware
 	Casbin        rest.Middleware
+	Hall          rest.Middleware
 }
 
 func NewServiceContext(c config.Server) *ServiceContext {
@@ -20,5 +21,6 @@ func NewServiceContext(c config.Server) *ServiceContext {
 		OperateRecord: middleware.OperationRecord,
 		Jwt:           middleware.JWTAuth,
 		Casbin:        middleware.CasbinHandler,
+		Hall:          middleware.HallCheck,
 	}
 }

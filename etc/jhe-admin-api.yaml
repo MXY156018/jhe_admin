@@ -51,11 +51,11 @@ JWT:
 local:
   path: uploads/file
 mysql:
-  path: 47.106.103.138:3306
+  path: 127.0.0.1:3306
   config: charset=utf8mb4&parseTime=True&loc=Local
   dbname: gva
   username: root
-  password: "2918f1a92da704b0"
+  password: "m156018!@#"
   maxIdleConns: 20
   maxOpenConns: 10
   logMode: ""

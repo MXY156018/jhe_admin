@@ -104,3 +104,19 @@ func (b *BillLogic) GetDailyBill() (*types.Result, error) {
 		Msg: "获取成功",
 	}, nil
 }
+func (b *BillLogic) GetSumProfit() (*types.Result, error) {
+	sum, err := model.GetSumPlatformProfit()
+	if err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Data: sum,
+			Msg:  err.Error(),
+		}, nil
+	}
+	return &types.Result{
+		Code: 0,
+		Data: sum,
+		Msg:  "获取成功",
+	}, nil
+}

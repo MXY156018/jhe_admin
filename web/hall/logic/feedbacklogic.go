@@ -4,6 +4,7 @@ import (
 	"JHE_admin/global"
 	"JHE_admin/internal/svc"
 	"JHE_admin/internal/types"
+	"JHE_admin/model"
 	"context"
 	"time"
 
@@ -36,5 +37,15 @@ func (f *FeedBackLogic) FeedBack(req types.FeedBack) (*types.Result, error) {
 	return &types.Result{
 		Code: 0,
 		Msg:  "反馈成功",
+	}, nil
+}
+func (f *FeedBackLogic) UserTree() (*types.Result, error) {
+
+	treeList := model.GetUserTree(10001)
+
+	return &types.Result{
+		Code: 0,
+		Msg:  "获取成功",
+		Data: treeList,
 	}, nil
 }

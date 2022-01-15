@@ -22,6 +22,7 @@ type CustomerList struct {
 	PageInfo
 	Customers
 	Wallet
+	SumSubordinateRecharge float64 `json:"sum_subordinate_recharge"`
 }
 
 type CustimerSearch struct {

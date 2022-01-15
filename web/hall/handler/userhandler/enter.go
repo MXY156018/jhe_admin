@@ -10,7 +10,7 @@ import (
 func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	engine.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{},
+			[]rest.Middleware{serverCtx.Hall},
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
@@ -21,6 +21,11 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 					Method:  http.MethodPost,
 					Path:    "/user/userfeedback",
 					Handler: FeedBackHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/test/getUserTree",
+					Handler: UserTreeHandler(serverCtx),
 				},
 			}...,
 		),

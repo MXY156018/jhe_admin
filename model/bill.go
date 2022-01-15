@@ -102,7 +102,6 @@ func GetDailyBill() (recharge float64, reward float64, platform float64, err err
 	var (
 		rechargeList []float64
 		rewardList   []float64
-		platformList []float64
 	)
 	err = global.GVA_DB.Model(&types.CustomerOperator{}).Where("type = 1").Where("create_time BETWEEN ? AND ?", start, end).Pluck("num", &rechargeList).Error
 	if err != nil {
@@ -118,8 +117,48 @@ func GetDailyBill() (recharge float64, reward float64, platform float64, err err
 	for _, v := range rewardList {
 		reward = reward + v
 	}
+	var platformList []float64
+	err = global.GVA_DB.Model(&types.GameRecord{}).Where("type = 3").Where("end_time BETWEEN ? AND ?", start, end).Pluck("commission", &platformList).Error
+	if err != nil {
+		return recharge, reward, platform, err
+	}
 	for _, v := range platformList {
 		platform = platform + v
 	}
+	platform = platform + (recharge+reward)*0.05
 	return recharge, reward, platform, err
+}
+
+func GetSumPlatformProfit() (sum float64, err error) {
+	var (
+		rechargeList []float64
+		rewardList   []float64
+		recharge     float64
+		reward       float64
+		platform     float64
+	)
+	err = global.GVA_DB.Model(&types.CustomerOperator{}).Where("type = 1").Pluck("num", &rechargeList).Error
+	if err != nil {
+		return sum, err
+	}
+	err = global.GVA_DB.Model(&types.CustomerOperator{}).Where("type = 2").Pluck("num", &rewardList).Error
+	if err != nil {
+		return sum, err
+	}
+	for _, v := range rechargeList {
+		recharge = recharge + v
+	}
+	for _, v := range rewardList {
+		reward = reward + v
+	}
+	var platformList []float64
+	err = global.GVA_DB.Model(&types.GameRecord{}).Where("win = 0").Pluck("commission", &platformList).Error
+	if err != nil {
+		return sum, err
+	}
+	for _, v := range platformList {
+		platform = platform + v
+	}
+	platform = platform + (recharge+reward)*0.05
+	return platform, err
 }
