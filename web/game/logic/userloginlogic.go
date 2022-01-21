@@ -3,11 +3,15 @@ package logic
 import (
 	"JHE_admin/global"
 	"JHE_admin/internal/svc"
-	mainType "JHE_admin/internal/types"
+	mainTypes "JHE_admin/internal/types"
+	"JHE_admin/model"
 	"JHE_admin/web/game/types"
 	"context"
+	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/tal-tech/go-zero/core/logx"
+	"go.uber.org/zap"
 )
 
 type HallUserLogic struct {
@@ -24,32 +28,178 @@ func NewHallUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) HallUserL
 	}
 }
 
-func (h *HallUserLogic) UserLogin(req types.HallUser) (*mainType.Result, error) {
-	if req.Uid <= 0 || req.Token == "" {
-		return &mainType.Result{
-			Code: 7,
+func (h *HallUserLogic) UserLogin(req types.HallUser) (*types.LoginResp, error) {
+	now := time.Now().Unix()
+	accessExpire := h.svcCtx.Config.Auth.AccessExpire
+	jwtToken, err := h.getJwtToken(h.svcCtx.Config.Auth.AccessSecret, now, h.svcCtx.Config.Auth.AccessExpire, req.Uid)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.LoginResp{
+		Code:         200,
+		Message:      "登陆成功",
+		Id:           req.Uid,
+		AccessToken:  jwtToken,
+		AccessExpire: now + accessExpire,
+		RefreshAfter: now + accessExpire/2,
+	}, nil
+}
+func (h *HallUserLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (string, error) {
+	claims := make(jwt.MapClaims)
+	claims["exp"] = iat + seconds
+	claims["iat"] = iat
+	claims["userId"] = userId
+	token := jwt.New(jwt.SigningMethodHS256)
+	token.Claims = claims
+	return token.SignedString([]byte(secretKey))
+}
+func (h *HallUserLogic) UserRegister(req types.Customer) (*mainTypes.Result, error) {
+	if req.Id == 0 || req.Address == "" {
+		return &mainTypes.Result{
+			Code: 400,
 			Msg:  "参数错误",
 		}, nil
 	}
-	var count int64
-	global.GVA_DB.Table("hall_tokens").Where("uid = ?", req.Uid).Count(&count)
-	if count == 1 {
-		if err := global.GVA_DB.Table("hall_tokens").Where("uid = ?", req.Uid).Update("token", req.Token).Error; err != nil {
-			return &mainType.Result{
-				Code: 7,
-				Msg:  err.Error(),
-			}, nil
-		}
-	} else {
-		if err := global.GVA_DB.Table("hall_tokens").Create(req).Error; err != nil {
-			return &mainType.Result{
-				Code: 7,
-				Msg:  err.Error(),
-			}, nil
-		}
+	tx := global.GVA_DB.Begin()
+	req.CreateTime = time.Now()
+	err := tx.Create(&req).Error
+	if err != nil {
+		global.GVA_LOG.Error("服务器内部错误", zap.Any("err", err))
+		tx.Rollback()
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "服务器内部错误",
+		}, nil
 	}
-	return &mainType.Result{
-		Code: 0,
-		Msg:  "后台登录成功",
+	wallet := types.Wallet{
+		Uid:        req.Id,
+		Currencyid: 1,
+		Name:       "JHE",
+		Balance:    0,
+		Lock:       0,
+	}
+
+	err = tx.Create(&wallet).Error
+	if err != nil {
+		tx.Rollback()
+		global.GVA_LOG.Error("服务器内部错误", zap.Any("err", err))
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "服务器内部错误",
+		}, nil
+	}
+	tx.Commit()
+	return &mainTypes.Result{
+		Code: 200,
+		Msg:  "新增用户成功",
+	}, nil
+}
+func (h *HallUserLogic) AccountManager(req types.CustomerOperator) (*mainTypes.Result, error) {
+	if req.Id == 0 || req.Num == 0 || req.Balance == 0 || req.Type == 0 {
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "参数错误",
+		}, nil
+	}
+	req.CreateTime = time.Now()
+	tx := global.GVA_DB.Begin()
+
+	err := tx.Model(&req).Create(&req).Error
+	if err != nil {
+		global.GVA_LOG.Error("账户变动失败", zap.Any("err", err))
+		tx.Rollback()
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "失败",
+		}, nil
+	}
+	err = tx.Model(&types.Wallet{}).Where("uid = ?", req.Uid).Update("balance", req.Balance).Error
+	if err != nil {
+		global.GVA_LOG.Error("账户变动失败", zap.Any("err", err))
+		tx.Rollback()
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "失败",
+		}, nil
+	}
+	tx.Commit()
+	return &mainTypes.Result{
+		Code: 200,
+		Msg:  "成功",
+	}, nil
+}
+func (h *HallUserLogic) RewardCallBack(req types.CustomerOperator) (*mainTypes.Result, error) {
+	tx := global.GVA_DB.Begin()
+
+	err := tx.Model(&mainTypes.Reward{}).Where("id = ?", req.Id).Update("status", 2).Update("create_time", time.Now()).Error
+	if err != nil {
+		global.GVA_LOG.Error("修改提币申请状态错误", zap.Any("err", err))
+		tx.Rollback()
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "操作错误" + err.Error(),
+		}, nil
+	}
+	var item = types.CustomerOperator{
+		Uid:        req.Uid,
+		Type:       2,
+		Num:        req.Num,
+		Balance:    req.Balance,
+		CreateTime: time.Now(),
+	}
+	err = tx.Model(&types.CustomerOperator{}).Create(&item).Error
+	if err != nil {
+		global.GVA_LOG.Error("添加用户操作错误", zap.Any("err", err))
+		tx.Rollback()
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "操作错误" + err.Error(),
+		}, nil
+	}
+	err = global.GVA_DB.Model(&mainTypes.Wallet{}).Where("uid = ?", req.Uid).Update("balance", req.Balance).Error
+	if err != nil {
+		global.GVA_LOG.Error("修改钱包余额失败", zap.Any("err", err))
+		tx.Rollback()
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "操作错误" + err.Error(),
+		}, nil
+	}
+	tx.Commit()
+	return &mainTypes.Result{
+		Code: 200,
+		Msg:  "操作成功",
+	}, nil
+}
+func (h *HallUserLogic) GameRankConfig() (*mainTypes.Result, error) {
+	var rankconfig []mainTypes.GameRankConfig
+	day, week, month, _, err := model.GetGameConfig()
+	if err != nil {
+		global.GVA_LOG.Error("获取游戏排名奖励设置失败", zap.Any("err", err))
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "获取失败",
+		}, nil
+	}
+	if err := global.GVA_DB.Model(&rankconfig).Limit(30).Find(&rankconfig).Error; err != nil {
+		global.GVA_LOG.Error("获取游戏排名奖励设置失败", zap.Any("err", err))
+		return &mainTypes.Result{
+			Code: 400,
+			Msg:  "获取失败",
+		}, nil
+	}
+	return &mainTypes.Result{
+		Code: 200,
+		Msg:  "获取成功",
+		Data: types.Config{
+			RankConfig: rankconfig,
+			ProfitConfig: mainTypes.GameConfig{
+				Day:   day,
+				Week:  week,
+				Month: month,
+			},
+		},
 	}, nil
 }

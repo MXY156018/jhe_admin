@@ -80,3 +80,12 @@ type GameDailyRep struct {
 	Reward   float64 `json:"reward"`
 	Platform float64 `json:"platform"`
 }
+
+type HomeData struct {
+	UserNum        int64   `json:"user_num"`
+	PlatformProfit float64 `json:"platform_profit"`
+	RechargeNum    float64 `json:"recharge_num"`
+	RewardNum      float64 `json:"reward_num"`
+	VipbalanceNum  float64 `json:"vipbalance_num"`
+	GameablanceNum float64 `json:"gameablance_num"`
+}

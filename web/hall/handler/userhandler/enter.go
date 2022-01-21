@@ -9,25 +9,43 @@ import (
 
 func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	engine.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Hall},
-			[]rest.Route{
-				{
-					Method:  http.MethodPost,
-					Path:    "/user/userinfo",
-					Handler: GetUserInfoHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/user/userfeedback",
-					Handler: FeedBackHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/test/getUserTree",
-					Handler: UserTreeHandler(serverCtx),
-				},
-			}...,
-		),
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/userinfo",
+				Handler: GetUserInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/userfeedback",
+				Handler: FeedBackHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/test/getUserTree",
+				Handler: UserTreeHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/hall/getNotice",
+				Handler: Notice(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/hall/getFeedBack",
+				Handler: FeedBack(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/hall/readFeedBack",
+				Handler: ReadFeedBack(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/hall/getRankList",
+				Handler: GetRankList(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
 }

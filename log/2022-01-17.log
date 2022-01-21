@@ -1,0 +1,5 @@
+[JHE_admin]2022/01/17 - 15:08:30.064	error	/data/goproject/jhe_admin/internal/logic/customer/customerlogic.go:199	服務器內部錯誤	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/17 - 15:09:40.629	error	/data/goproject/jhe_admin/internal/logic/customer/customerlogic.go:199	服務器內部錯誤	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/17 - 15:11:43.621	error	/data/goproject/jhe_admin/internal/logic/customer/customerlogic.go:199	服務器內部錯誤	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/17 - 15:12:17.411	error	/data/goproject/jhe_admin/internal/logic/customer/customerlogic.go:199	服務器內部錯誤	{"err": "sql: Scan error on column index 0, name \"sum\": converting NULL to float64 is unsupported"}
+[JHE_admin]2022/01/17 - 15:29:13.206	error	/data/goproject/jhe_admin/internal/logic/menu/menulogic.go:81	添加失败!	{"err": "存在重复name，请修改name"}

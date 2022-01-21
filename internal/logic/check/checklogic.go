@@ -6,6 +6,7 @@ import (
 	"JHE_admin/internal/types"
 	"JHE_admin/model"
 	"context"
+	"time"
 
 	"github.com/tal-tech/go-zero/core/logx"
 	"go.uber.org/zap"
@@ -52,6 +53,17 @@ func (c *CheckLogic) GetCheckList(req types.RewardReq) (*types.Result, error) {
 	}, nil
 }
 func (c *CheckLogic) PassCheck(req types.Reward) (*types.Result, error) {
+	req.CreateTime = time.Now()
+	req.Status = 1
+	err := global.GVA_DB.Model(&req).Create(&req).Error
+	if err != nil {
+		global.GVA_LOG.Error("提交失败", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "提交失败",
+		}, nil
+	}
+	//申请接口转币
 
 	return &types.Result{
 		Code: 0,
@@ -77,9 +89,9 @@ func (c *CheckLogic) GetDailyReward() (*types.Result, error) {
 	return &types.Result{
 		Code: 0,
 		Data: types.DailyReward{
-			Num: num,
+			Num:   num,
 			Total: total,
 		},
-		Msg:  "获取成功",
+		Msg: "获取成功",
 	}, nil
 }

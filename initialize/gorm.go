@@ -63,6 +63,7 @@ func GormMysql(c config.Server) *gorm.DB {
 func gormConfig() *gorm.Config {
 	config := &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
+		SkipDefaultTransaction:                   true,
 	}
 	switch global.GVA_CONFIG.Mysql.LogMode {
 	case "silent", "Silent":

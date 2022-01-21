@@ -26,3 +26,67 @@ func UserHallLoginHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		}
 	}
 }
+func UserRegisterHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.Customer
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := logic.NewHallUserLogic(r.Context(), ctx)
+		resp, err := l.UserRegister(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func UserAccountManagerHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.CustomerOperator
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := logic.NewHallUserLogic(r.Context(), ctx)
+		resp, err := l.AccountManager(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func UserRewardCallBackHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.CustomerOperator
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := logic.NewHallUserLogic(r.Context(), ctx)
+		resp, err := l.RewardCallBack(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
+func GetGameRankConfigHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req struct{}
+		if err := httpx.Parse(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := logic.NewHallUserLogic(r.Context(), ctx)
+		resp, err := l.GameRankConfig()
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}

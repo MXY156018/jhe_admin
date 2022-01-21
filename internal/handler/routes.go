@@ -6,27 +6,27 @@ import (
 	"JHE_admin/internal/handler/authorityhandler"
 	"JHE_admin/internal/handler/autocodehandler"
 	"JHE_admin/internal/handler/basehandler"
+	"JHE_admin/internal/handler/billhandler"
 	"JHE_admin/internal/handler/casbinhandler"
+	"JHE_admin/internal/handler/checkhandler"
+	"JHE_admin/internal/handler/customerhandler"
 	"JHE_admin/internal/handler/excelhandler"
 	"JHE_admin/internal/handler/feedbackhandler"
 	"JHE_admin/internal/handler/filehandler"
+	"JHE_admin/internal/handler/gamerankhandler"
 	"JHE_admin/internal/handler/menuhandler"
+	"JHE_admin/internal/handler/noticehandler"
 	"JHE_admin/internal/handler/simpleuploadhandler"
 	sysdictionaryhandler "JHE_admin/internal/handler/sysdictionary"
 	"JHE_admin/internal/handler/sysdictionarydetailhandler"
 	"JHE_admin/internal/handler/sysoperationrecordhandler"
 	"JHE_admin/internal/handler/systemhandler"
-	"JHE_admin/internal/handler/customerhandler"
 	"JHE_admin/internal/handler/userhandler"
-	"JHE_admin/internal/handler/billhandler"
-	"JHE_admin/internal/handler/noticehandler"
-	"JHE_admin/internal/handler/checkhandler"
 	"JHE_admin/internal/svc"
 	"net/http"
 	"strings"
 
 	"github.com/tal-tech/go-zero/rest"
-
 
 	halluser "JHE_admin/web/hall/handler/userhandler"
 
@@ -57,7 +57,8 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	noticehandler.RegisterHandlersAutocode(engine, serverCtx)
 	noticehandler.RegisterHandlersAutocode1(engine, serverCtx)
 	checkhandler.RegisterHandlersAutocode1(engine, serverCtx)
-
+	gamerankhandler.RegisterHandlersAutocode(engine, serverCtx)
+	gamerankhandler.RegisterHandlersAutocode1(engine, serverCtx)
 	//大厅api
 	halluser.RegisterHandlersAutocode(engine, serverCtx)
 	//游戏api

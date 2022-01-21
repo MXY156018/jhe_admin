@@ -56,6 +56,11 @@ func RegisterHandlersAutocode1(engine *rest.Server, serverCtx *svc.ServiceContex
 					Path:    "/customer/getOperator",
 					Handler: GetCustomerOperatorHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/home/homeData",
+					Handler: HomeDataHandler(serverCtx),
+				},
 			}...,
 		),
 	)

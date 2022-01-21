@@ -167,3 +167,68 @@ func (c *CustomerLogic) GetCustomerOperator(req types.OperateRecord) (*types.Res
 		},
 	}, nil
 }
+func (c *CustomerLogic) GetHomeData() (*types.Result, error) {
+
+	var userNum int64
+	err := global.GVA_DB.Model(&types.Customers{}).Count(&userNum).Error
+	if err != nil {
+		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "獲取失敗",
+		}, nil
+	}
+	platform, err := model.GetSumPlatformProfit()
+	if err != nil {
+		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "獲取失敗",
+		}, nil
+	}
+	rechargeNum, err := model.GetSum(1)
+	if err != nil {
+		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "獲取失敗",
+		}, nil
+	}
+	rewardNum, err := model.GetSum(2)
+	if err != nil {
+		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "獲取失敗",
+		}, nil
+	}
+	vipprofitNum, err := model.GetSum(3)
+	if err != nil {
+		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "獲取失敗",
+		}, nil
+	}
+	gameprogitNum, err := model.GetSum(4)
+	if err != nil {
+		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
+		return &types.Result{
+			Code: 7,
+			Msg:  "獲取失敗",
+		}, nil
+	}
+
+	return &types.Result{
+		Code: 0,
+		Msg:  "獲取成功",
+		Data: &types.HomeData{
+			UserNum:        userNum,
+			PlatformProfit: platform,
+			RechargeNum:    rechargeNum,
+			RewardNum:      rewardNum,
+			VipbalanceNum:  vipprofitNum,
+			GameablanceNum: gameprogitNum,
+		},
+	}, nil
+}

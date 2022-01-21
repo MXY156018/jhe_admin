@@ -109,3 +109,12 @@ func GetCustomerOperatorModel(req types.OperateRecord) (list []types.CustomerOpe
 	}
 	return list, total, nil
 }
+
+func GetSum(Type int) (sum float64, err error) {
+	var NumList []float64
+	err = global.GVA_DB.Table("customer_operators").Where("type = ?", Type).Pluck("num", &NumList).Error
+	for _, v := range NumList {
+		sum = sum + v
+	}
+	return sum, err
+}
