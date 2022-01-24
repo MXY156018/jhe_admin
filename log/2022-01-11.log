@@ -1,7 +1,0 @@
-[JHE_admin]2022/01/11 - 10:29:59.960	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Error 1054: Unknown column 'sum' in 'field list'"}
-[JHE_admin]2022/01/11 - 10:30:00.000	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Error 1054: Unknown column 'sum' in 'field list'"}
-[JHE_admin]2022/01/11 - 10:30:00.017	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "Error 1054: Unknown column 'sum' in 'field list'"}
-[JHE_admin]2022/01/11 - 10:36:13.370	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"SUM(num)\": converting NULL to float64 is unsupported"}
-[JHE_admin]2022/01/11 - 10:36:13.534	error	D:/MXY/goProgect/JHE_admin/internal/logic/bill/billlogic.go:30	查询失败!	{"err": "sql: Scan error on column index 0, name \"SUM(num)\": converting NULL to float64 is unsupported"}
-[JHE_admin]2022/01/11 - 20:59:02.181	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/notice/noticelogic.go:79	创建公告失败!	{"err": "Error 1364: Field 'id' doesn't have a default value"}
-[JHE_admin]2022/01/11 - 21:21:00.584	error	F:/MXY/GoProject/src/JHE_admin/internal/logic/notice/noticelogic.go:138	更新公告失败!	{"err": "WHERE conditions required"}

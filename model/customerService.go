@@ -14,7 +14,7 @@ func GetCustomerList(req types.CustimerSearch) (list []types.CustomerList, total
 	limit := req.PageSize
 	offset := req.PageSize * (req.Page - 1)
 	var userList []types.CustomerList
-	db := global.GVA_DB.Model(&types.Customers{}).Select("customers.id,customers.address,customers.type,customers.create_time,customers.status,wallet.balance").Joins("left join wallet on customers.id=wallet.uid")
+	db := global.GVA_DB.Model(&types.Customers{}).Select("customers.id,customers.address,customers.type,customers.create_time,customers.status,wallets.balance").Joins("left join wallets on customers.id=wallets.uid")
 	if req.Id != 0 {
 		db = db.Where("customers.id LIKE ?", "%"+fmt.Sprint(req.Id)+"%")
 	}
@@ -50,7 +50,7 @@ func GetCustomerById(req types.Customers) (types.CustomerList, error) {
 	if req.Id <= 0 {
 		return user, errors.New("参数错误")
 	}
-	db := global.GVA_DB.Model(&types.Customers{}).Select("customers.id,customers.address,customers.type,customers.create_time,customers.status,wallet.balance").Joins("left join wallet on customers.id=wallet.uid")
+	db := global.GVA_DB.Model(&types.Customers{}).Select("customers.id,customers.address,customers.type,customers.create_time,customers.status,wallets.balance").Joins("left join wallets on customers.id=wallets.uid")
 
 	if err := db.Where("id = ?", req.Id).Find(&user).Error; err != nil {
 		return user, err
@@ -65,7 +65,7 @@ func GetSubordinateModel(req types.CustomerList) (list []types.CustomerList, tot
 	limit := req.PageSize
 	offset := req.PageSize * (req.Page - 1)
 	var userList []types.CustomerList
-	db := global.GVA_DB.Model(&types.Customers{}).Select("customers.id,customers.address,customers.type,customers.create_time,customers.status,wallet.balance").Joins("left join wallet on customers.id=wallet.uid")
+	db := global.GVA_DB.Model(&types.Customers{}).Select("customers.id,customers.address,customers.type,customers.create_time,customers.status,wallets.balance").Joins("left join wallets on customers.id=wallets.uid")
 	if req.Id != 0 {
 		db = db.Where("customers.sid = ?", req.Id)
 	}

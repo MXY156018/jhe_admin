@@ -46,6 +46,7 @@ type GameRecord struct {
 	Commission float64   `json:"commission,optional"`
 	StartTime  time.Time `json:"start_time,optional"`
 	EndTime    time.Time `json:"end_time,optional"`
+	Score      int       `json:"score,optional"`
 }
 
 type GameRecordList struct {
