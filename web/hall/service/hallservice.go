@@ -49,3 +49,39 @@ func GetUserList(start_time time.Time, end_time time.Time, Type int64) (list []t
 	global.GVA_DB.Table("game_records").Select("SUM(score) as sum_score,uid").Where("end_time BETWEEN ? AND ?", start_time, end_time).Group("uid").Order("sum_score desc").Find(&list)
 	return list
 }
+
+func GetVipList(req types.CustomerPage) (total int64, list []types.GameRank, err error) {
+	limit := req.PageSize
+	offset := req.PageSize * (req.Page - 1)
+
+	err = global.GVA_DB.Table("customer_operators").Select("create_time,num,uid").Where("uid = ? AND Type = 3", req.Uid).Count(&total).Limit(limit).Offset(offset).Order("create_time desc").Find(&list).Error
+	if err != nil {
+		return total, list, err
+	}
+	var sum float64
+	for _, v := range list {
+		sum = sum + v.Num
+	}
+	for k, _ := range list {
+		list[k].SumProfit = sum
+	}
+	return total, list, err
+
+}
+func GetGameList(req types.CustomerPage) (total int64, list []types.GameRank, err error) {
+	limit := req.PageSize
+	offset := req.PageSize * (req.Page - 1)
+	rang := [3]int{4, 6, 7}
+	err = global.GVA_DB.Table("customer_operators").Select("create_time,num,uid").Where("uid = ? AND Type in ?", req.Uid, rang).Count(&total).Limit(limit).Offset(offset).Order("create_time desc").Find(&list).Error
+	if err != nil {
+		return total, list, err
+	}
+	var sum float64
+	for _, v := range list {
+		sum = sum + v.Num
+	}
+	for k, _ := range list {
+		list[k].SumProfit = sum
+	}
+	return total, list, err
+}

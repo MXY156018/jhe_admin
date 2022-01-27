@@ -59,6 +59,7 @@ type CustomerOperator struct {
 	Uid        int       `json:"uid,optional"`
 	Type       int       `json:"type,optional"`
 	Num        float64   `json:"num,optional"`
+	PreBalance float64   `json:"pre_balance,optional"`
 	Balance    float64   `json:"balance,optional"`
 	CreateTime time.Time `json:"create_time,optional"`
 }

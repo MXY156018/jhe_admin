@@ -108,3 +108,87 @@ func (u *UserLogic) GetRankList() (*mainType.Result, error) {
 		},
 	}, nil
 }
+func (u *UserLogic) GetRechargeList(req types.CustomerPage) (*mainType.Result, error) {
+	limit := req.PageSize
+	offset := req.PageSize * (req.Page - 1)
+	var total int64
+	var list []types.CustomerOperator
+	err := global.GVA_DB.Table("customer_operators").Where("uid = ? AND type = ?", req.Uid, 1).Count(&total).Limit(limit).Offset(offset).Order("create_time desc").Find(&list).Error
+	if err != nil {
+		return &mainType.Result{
+			Code: 400,
+			Msg:  "获取失败" + err.Error(),
+		}, nil
+	}
+	return &mainType.Result{
+		Code: 200,
+		Msg:  "获取成功",
+		Data: types.PageResult{
+			Total:    total,
+			List:     list,
+			Page:     req.Page,
+			PageSize: req.Page,
+		},
+	}, nil
+}
+func (u *UserLogic) GetRewardList(req types.CustomerPage) (*mainType.Result, error) {
+	limit := req.PageSize
+	offset := req.PageSize * (req.Page - 1)
+	var total int64
+	var list []types.CustomerOperator
+	err := global.GVA_DB.Table("customer_operators").Where("uid = ? AND type = ?", req.Uid, 2).Count(&total).Limit(limit).Offset(offset).Order("create_time desc").Find(&list).Error
+	if err != nil {
+		return &mainType.Result{
+			Code: 400,
+			Msg:  "获取失败" + err.Error(),
+		}, nil
+	}
+	return &mainType.Result{
+		Code: 200,
+		Msg:  "获取成功",
+		Data: types.PageResult{
+			Total:    total,
+			List:     list,
+			Page:     req.Page,
+			PageSize: req.Page,
+		},
+	}, nil
+}
+func (u *UserLogic) GetVipProfitList(req types.CustomerPage) (*mainType.Result, error) {
+	total, list, err := service.GetVipList(req)
+	if err != nil {
+		return &mainType.Result{
+			Code: 400,
+			Msg:  "获取失败" + err.Error(),
+		}, nil
+	}
+	return &mainType.Result{
+		Code: 200,
+		Msg:  "获取成功",
+		Data: types.PageResult{
+			Total:    total,
+			List:     list,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		},
+	}, nil
+}
+func (u *UserLogic) GetGameProfitList(req types.CustomerPage) (*mainType.Result, error) {
+	total, list, err := service.GetGameList(req)
+	if err != nil {
+		return &mainType.Result{
+			Code: 400,
+			Msg:  "获取失败" + err.Error(),
+		}, nil
+	}
+	return &mainType.Result{
+		Code: 200,
+		Msg:  "获取成功",
+		Data: types.PageResult{
+			Total:    total,
+			List:     list,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		},
+	}, nil
+}

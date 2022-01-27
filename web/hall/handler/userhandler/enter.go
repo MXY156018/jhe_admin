@@ -45,6 +45,26 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 				Path:    "/hall/getRankList",
 				Handler: GetRankList(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/hall/getRechargeList",
+				Handler: GetRechargeList(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/hall/getRewardList",
+				Handler: GetRewardList(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/hall/getVipProfit",
+				Handler: GetVipProfitList(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/hall/getGameProfit",
+				Handler: GetGameProfitList(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
