@@ -60,6 +60,16 @@ mysql:
   maxOpenConns: 10
   logMode: ""
   logZap: false
+mysql2:
+  path: 127.0.0.1:3306
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  dbname: game
+  username: root
+  password: "m156018!@#"
+  maxIdleConns: 20
+  maxOpenConns: 10
+  logMode: ""
+  logZap: false
 qiniu:
   zone: ZoneHuaDong
   bucket: ""

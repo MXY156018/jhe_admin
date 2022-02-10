@@ -11,6 +11,22 @@ import (
 	"github.com/tal-tech/go-zero/rest/httpx"
 )
 
+func UserHallLoginHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.HallUser
+		if err := utils.Bind(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+		l := logic.NewFeedBackLogic(r.Context(), ctx)
+		resp, err := l.UserLogin(req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}
 func FeedBackHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req mainType.FeedBack

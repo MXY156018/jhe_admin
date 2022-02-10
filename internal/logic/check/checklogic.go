@@ -29,7 +29,7 @@ func (c *CheckLogic) GetCheckList(req types.RewardReq) (*types.Result, error) {
 	total, list, err := model.GetRewardList(req)
 
 	if err != nil {
-		global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
+		global.GVA_LOG.Error("獲取失敗!", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
 			Data: types.PageResult{
@@ -38,7 +38,7 @@ func (c *CheckLogic) GetCheckList(req types.RewardReq) (*types.Result, error) {
 				Page:     req.Page,
 				PageSize: req.PageSize,
 			},
-			Msg: "获取失败",
+			Msg: "獲取失敗",
 		}, nil
 	}
 	return &types.Result{
@@ -49,7 +49,7 @@ func (c *CheckLogic) GetCheckList(req types.RewardReq) (*types.Result, error) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		},
-		Msg: "获取成功",
+		Msg: "獲取成功",
 	}, nil
 }
 func (c *CheckLogic) PassCheck(req types.Reward) (*types.Result, error) {
@@ -57,33 +57,33 @@ func (c *CheckLogic) PassCheck(req types.Reward) (*types.Result, error) {
 	req.Status = 1
 	err := global.GVA_DB.Model(&req).Create(&req).Error
 	if err != nil {
-		global.GVA_LOG.Error("提交失败", zap.Any("err", err))
+		global.GVA_LOG.Error("提交失敗", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
-			Msg:  "提交失败",
+			Msg:  "提交失敗",
 		}, nil
 	}
 	//申请接口转币
 
 	return &types.Result{
 		Code: 0,
-		Msg:  "审核通过",
+		Msg:  "審核通過",
 	}, nil
 }
 func (c *CheckLogic) PassCheckByIds(req types.Ids) (*types.Result, error) {
 
 	return &types.Result{
 		Code: 0,
-		Msg:  "批量审核通过",
+		Msg:  "批量審核通過",
 	}, nil
 }
 func (c *CheckLogic) GetDailyReward() (*types.Result, error) {
 	num, total, err := model.GetDailyReward()
 	if err != nil {
-		global.GVA_LOG.Error("获取失败", zap.Any("err", err))
+		global.GVA_LOG.Error("獲取失敗", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
-			Msg:  "获取失败",
+			Msg:  "獲取失敗",
 		}, nil
 	}
 	return &types.Result{
@@ -92,6 +92,6 @@ func (c *CheckLogic) GetDailyReward() (*types.Result, error) {
 			Num:   num,
 			Total: total,
 		},
-		Msg: "获取成功",
+		Msg: "獲取成功",
 	}, nil
 }

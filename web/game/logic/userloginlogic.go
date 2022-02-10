@@ -9,7 +9,6 @@ import (
 	"context"
 	"time"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/tal-tech/go-zero/core/logx"
 	"go.uber.org/zap"
 )
@@ -28,33 +27,6 @@ func NewHallUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) HallUserL
 	}
 }
 
-func (h *HallUserLogic) UserLogin(req types.HallUser) (*types.LoginResp, error) {
-	now := time.Now().Unix()
-	accessExpire := h.svcCtx.Config.Auth.AccessExpire
-	jwtToken, err := h.getJwtToken(h.svcCtx.Config.Auth.AccessSecret, now, h.svcCtx.Config.Auth.AccessExpire, req.Uid)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &types.LoginResp{
-		Code:         200,
-		Message:      "登陆成功",
-		Id:           req.Uid,
-		AccessToken:  jwtToken,
-		AccessExpire: now + accessExpire,
-		RefreshAfter: now + accessExpire/2,
-	}, nil
-}
-func (h *HallUserLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (string, error) {
-	claims := make(jwt.MapClaims)
-	claims["exp"] = iat + seconds
-	claims["iat"] = iat
-	claims["userId"] = userId
-	token := jwt.New(jwt.SigningMethodHS256)
-	token.Claims = claims
-	return token.SignedString([]byte(secretKey))
-}
 func (h *HallUserLogic) UserRegister(req types.Customer) (*mainTypes.Result, error) {
 	if req.Id == 0 || req.Address == "" {
 		return &mainTypes.Result{

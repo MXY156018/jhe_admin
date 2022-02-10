@@ -27,7 +27,7 @@ func NewBillLogic(ctx context.Context, svcCtx *svc.ServiceContext) BillLogic {
 func (b *BillLogic) GetBillList(req types.BillReq) (*types.Result, error) {
 	total, list, sum, err := model.GetBill(req)
 	if err != nil {
-		global.GVA_LOG.Error("查询失败!", zap.Any("err", err))
+		global.GVA_LOG.Error("查詢失敗!", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
 			Data: &types.PageResult{
@@ -49,13 +49,13 @@ func (b *BillLogic) GetBillList(req types.BillReq) (*types.Result, error) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		},
-		Msg: "获取成功",
+		Msg: "獲取成功",
 	}, nil
 }
 func (b *BillLogic) GetGameBillList(req types.BillReq) (*types.Result, error) {
 	total, list, sum, err := model.GetGameBill(req)
 	if err != nil {
-		global.GVA_LOG.Error("查询失败!", zap.Any("err", err))
+		global.GVA_LOG.Error("查詢失敗!", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
 			Data: &types.PageResult{
@@ -77,13 +77,13 @@ func (b *BillLogic) GetGameBillList(req types.BillReq) (*types.Result, error) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		},
-		Msg: "获取成功",
+		Msg: "獲取成功",
 	}, nil
 }
 func (b *BillLogic) GetDailyBill() (*types.Result, error) {
 	recharge, reward, platform, err := model.GetDailyBill()
 	if err != nil {
-		global.GVA_LOG.Error("查询失败!", zap.Any("err", err))
+		global.GVA_LOG.Error("查詢失敗!", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
 			Data: &types.GameDailyRep{
@@ -101,13 +101,13 @@ func (b *BillLogic) GetDailyBill() (*types.Result, error) {
 			Reward:   reward,
 			Platform: platform,
 		},
-		Msg: "获取成功",
+		Msg: "獲取成功",
 	}, nil
 }
 func (b *BillLogic) GetSumProfit() (*types.Result, error) {
 	sum, err := model.GetSumPlatformProfit()
 	if err != nil {
-		global.GVA_LOG.Error("查询失败!", zap.Any("err", err))
+		global.GVA_LOG.Error("查詢失敗!", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
 			Data: sum,
@@ -117,6 +117,6 @@ func (b *BillLogic) GetSumProfit() (*types.Result, error) {
 	return &types.Result{
 		Code: 0,
 		Data: sum,
-		Msg:  "获取成功",
+		Msg:  "獲取成功",
 	}, nil
 }

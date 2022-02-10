@@ -2,6 +2,29 @@ package types
 
 import "time"
 
+type HallUser struct {
+	Account  string `json:"account"`
+	PassWord string `json:"passWord"`
+}
+type User struct {
+	Uid           int64     `json:"uid"`
+	Head          int       `json:"head"`
+	Parent        int       `json:"parent"`
+	Account       string    `json:"account"`
+	Address       string    `json:"address"`
+	RegisterTime  time.Time `json:"registerTime"`
+	LastLoginTime time.Time `json:"lastLoginTime"`
+	LastLoginIP   string    `json:"lastLoginIp"`
+	IsBot         int       `json:"isBot"`
+}
+type LoginResp struct {
+	Code         int    `json:"code"`
+	Message      string `json:"message"`
+	Id           int64  `json:"id"`
+	AccessToken  string `json:"token"`
+	AccessExpire int64  `json:"accessExpire"`
+	RefreshAfter int64  `json:"refreshAfter"`
+}
 type RechargeSum struct {
 	Id       int            `json:"id"`
 	Sid      int            `json:"sid"`

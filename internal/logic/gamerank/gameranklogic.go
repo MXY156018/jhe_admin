@@ -85,7 +85,7 @@ func (g *GameRankLogic) GetGameRank(req types.GameRankSearch) (*types.Result, er
 				WeekList:  list2,
 				MonthList: list3,
 			},
-			Msg: "获取失败",
+			Msg: "獲取失敗",
 		}, nil
 	}
 	return &types.Result{
@@ -95,6 +95,6 @@ func (g *GameRankLogic) GetGameRank(req types.GameRankSearch) (*types.Result, er
 			WeekList:  list2,
 			MonthList: list3,
 		},
-		Msg: "获取成功",
+		Msg: "獲取成功",
 	}, nil
 }

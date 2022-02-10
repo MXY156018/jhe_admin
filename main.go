@@ -26,9 +26,10 @@ func main() {
 	server := rest.MustNewServer(c.RestConf)
 	defer server.Stop()
 
-	global.GVA_VP = core.Viper()       // 初始化Viper
-	global.GVA_LOG = core.Zap(c)       // 初始化zap日志库
-	global.GVA_DB = initialize.Gorm(c) // gorm连接数据库
+	global.GVA_VP = core.Viper()               // 初始化Viper
+	global.GVA_LOG = core.Zap(c)               // 初始化zap日志库
+	global.GVA_DB = initialize.Gorm(c.Mysql)   // gorm连接数据库
+	global.GVA_DB2 = initialize.Gorm(c.Mysql2) // gorm连接数据库
 	global.GVA_CONFIG = c
 	initialize.Timer()
 

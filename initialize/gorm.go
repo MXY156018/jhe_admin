@@ -5,6 +5,7 @@ import (
 	"JHE_admin/initialize/internal"
 	"JHE_admin/internal/config"
 
+	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -15,13 +16,8 @@ import (
 //@description: 初始化数据库并产生数据库全局变量
 //@return: *gorm.DB
 
-func Gorm(c config.Server) *gorm.DB {
-	switch c.System.DbType {
-	case "mysql":
-		return GormMysql(c)
-	default:
-		return GormMysql(c)
-	}
+func Gorm(c config.Mysql) *gorm.DB {
+	return GormMysql(c)
 }
 
 //@author: SliverHorn
@@ -29,8 +25,8 @@ func Gorm(c config.Server) *gorm.DB {
 //@description: 初始化Mysql数据库
 //@return: *gorm.DB
 
-func GormMysql(c config.Server) *gorm.DB {
-	dsn := c.Mysql.Username + ":" + c.Mysql.Password + "@tcp(" + c.Mysql.Path + ")/" + c.Mysql.Dbname + "?" + c.Mysql.Config
+func GormMysql(c config.Mysql) *gorm.DB {
+	dsn := c.Username + ":" + c.Password + "@tcp(" + c.Path + ")/" + c.Dbname + "?" + c.Config
 	mysqlConfig := mysql.Config{
 		DSN:                       dsn,   // DSN data source name
 		DefaultStringSize:         191,   // string 类型字段的默认长度
@@ -41,14 +37,14 @@ func GormMysql(c config.Server) *gorm.DB {
 
 	}
 	if db, err := gorm.Open(mysql.New(mysqlConfig), gormConfig()); err != nil {
-		//global.GVA_LOG.Error("MySQL启动异常", zap.Any("err", err))
+		global.GVA_LOG.Error("MySQL启动异常", zap.Any("err", err))
 		//os.Exit(0)
 		//return nil
 		return nil
 	} else {
 		sqlDB, _ := db.DB()
-		sqlDB.SetMaxIdleConns(c.Mysql.MaxIdleConns)
-		sqlDB.SetMaxOpenConns(c.Mysql.MaxOpenConns)
+		sqlDB.SetMaxIdleConns(c.MaxIdleConns)
+		sqlDB.SetMaxOpenConns(c.MaxOpenConns)
 
 		return db
 	}

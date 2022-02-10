@@ -33,7 +33,7 @@ func CasbinHandler(next http.HandlerFunc) http.HandlerFunc {
 		if global.GVA_CONFIG.System.Env == "develop" || success {
 			next(w, r)
 		} else {
-			res := types.Result{Code: 7, Msg: "权限不足"}
+			res := types.Result{Code: 7, Msg: "權限不足符合"}
 			resp, _ := json.Marshal(res)
 			w.Write(resp)
 			return

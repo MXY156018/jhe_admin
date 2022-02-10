@@ -5,18 +5,6 @@ import (
 	"time"
 )
 
-type HallUser struct {
-	Uid int64 `json:"uid"`
-}
-type LoginResp struct {
-	Code         int    `json:"code"`
-	Message      string `json:"message"`
-	Id           int64  `json:"id"`
-	AccessToken  string `json:"token"`
-	AccessExpire int64  `json:"accessExpire"`
-	RefreshAfter int64  `json:"refreshAfter"`
-}
-
 type Customer struct {
 	Id         int       `json:"id,optional"`
 	Sid        int       `json:"sid,optional"`

@@ -22,13 +22,13 @@ func JWTAuth(next http.HandlerFunc) http.HandlerFunc {
 		// 我们这里jwt鉴权取头部信息 x-token 登录时回返回token信息 这里前端需要把token存储到cookie或者本地localStorage中 不过需要跟后端协商过期时间 可以约定刷新令牌或者重新登录
 		token := r.Header.Get("x-token")
 		if token == "" {
-			res := types.Result{Code: 401, Msg: "未登录或非法访问"}
+			res := types.Result{Code: 401, Msg: "未登錄或非法訪問"}
 			resp, _ := json.Marshal(res)
 			w.Write(resp)
 		}
 		if model.JwtServiceApp.IsBlacklist(token) {
 
-			res := types.Result{Code: 401, Msg: "您的帐户异地登陆或令牌失效"}
+			res := types.Result{Code: 401, Msg: "您的賬號異地登錄或令牌失效"}
 			resp, _ := json.Marshal(res)
 			w.Write(resp)
 			return
@@ -38,7 +38,7 @@ func JWTAuth(next http.HandlerFunc) http.HandlerFunc {
 		claims, err := j.ParseToken(token)
 		if err != nil {
 			if err == TokenExpired {
-				res := types.Result{Code: 401, Msg: "授权已过期,请重新登录"}
+				res := types.Result{Code: 401, Msg: "授權已過期,請重新登錄"}
 				resp, _ := json.Marshal(res)
 				w.Write(resp)
 				return

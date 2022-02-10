@@ -68,4 +68,13 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/halllogin",
+				Handler: UserHallLoginHandler(serverCtx),
+			},
+		},
+	)
 }
