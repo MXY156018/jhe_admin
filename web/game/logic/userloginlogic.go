@@ -105,7 +105,7 @@ func (h *HallUserLogic) AccountManager(req types.CustomerOperator) (*mainTypes.R
 func (h *HallUserLogic) RewardCallBack(req types.CustomerOperator) (*mainTypes.Result, error) {
 	tx := global.GVA_DB.Begin()
 
-	err := tx.Model(&mainTypes.Reward{}).Where("id = ?", req.Id).Update("status", 2).Update("create_time", time.Now()).Error
+	err := tx.Model(&mainTypes.UserWithdrawl{}).Where("id = ?", req.Id).Update("status", 2).Update("create_time", time.Now()).Error
 	if err != nil {
 		global.GVA_LOG.Error("修改提币申请状态错误", zap.Any("err", err))
 		tx.Rollback()

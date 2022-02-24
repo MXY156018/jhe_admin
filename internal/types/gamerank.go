@@ -1,11 +1,18 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-01-19 10:29:19
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-22 14:13:39
+ */
 package types
-
-import "time"
 
 type GameRankConfig struct {
 	Id     int     `json:"id"`
 	Num    float64 `json:"num"`
 	Remark string  `json:"remark"`
+	Symbol string  `json:"symbol"`
 }
 
 type GameConfig struct {
@@ -21,12 +28,13 @@ type GameRankSearch struct {
 }
 
 type GameRankList struct {
-	Rank      int       `json:"rank"`
-	StartTime time.Time `json:"start_time"`
-	EndTime   time.Time `json:"end_time"`
-	Uid       int       `json:"uid"`
-	SumScore  int       `json:"sum_score"`
-	Profit    float64   `json:"profit"`
+	Start_time string  `json:"start_time,omitempty"`
+	End_time   string  `json:"end_time,omitempty"`
+	Uid        int     `json:"uid,omitempty"`
+	GameId     int     `json:"game_id,omitempty"`
+	Credit     float64 `json:"credit"`
+	Rank       int     `json:"rank,omitempty"`
+	Profit     float64 `json:"profit"`
 }
 
 type RankList struct {

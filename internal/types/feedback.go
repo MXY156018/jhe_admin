@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-16 18:05:06
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-16 18:05:06
+ */
 package types
 
 import "time"
@@ -14,7 +22,7 @@ type FeedBack struct {
 	Status      string     `json:"status,optional"`
 	Handle      string     `json:"handle,optional"`
 	IsRead      int        `json:"is_read,optional"`
-	UIsRead     int        `json:"u_is_read,optional"`
+	UIsRead     int        `json:"uis_read,optional"`
 }
 type SearchFeedBack struct {
 	Uid       int    `json:"uid,optional"`

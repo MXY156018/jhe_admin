@@ -1,9 +1,18 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-18 11:28:59
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-23 11:52:45
+ */
 package middleware
 
 import (
 	"JHE_admin/global"
 	"JHE_admin/internal/types"
 	"JHE_admin/model"
+
 	"encoding/json"
 	"net/http"
 

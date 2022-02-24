@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-16 12:31:45
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-19 14:55:26
+ */
 package model
 
 import (
@@ -8,10 +16,10 @@ import (
 	"github.com/araddon/dateparse"
 )
 
-func GetRewardList(req types.RewardReq) (total int64, list []types.Reward, err error) {
+func GetRewardList(req types.RewardReq) (total int64, list []types.UserWithdrawl, sum float64, err error) {
 	limit := req.PageSize
 	offset := req.PageSize * (req.Page - 1)
-	db := global.GVA_DB.Model(&types.Reward{})
+	db := global.GVA_DB.Model(&types.UserWithdrawl{})
 	if req.Uid != 0 {
 		db = db.Where("uid = ?", req.Uid)
 	}
@@ -22,22 +30,25 @@ func GetRewardList(req types.RewardReq) (total int64, list []types.Reward, err e
 		start, err := dateparse.ParseAny(req.StartTime)
 		end, err := dateparse.ParseAny(req.EndTime)
 		if err != nil {
-			return 0, list, err
+			return 0, list, sum, err
 		}
 		if req.StartTime == req.EndTime {
 			ad, _ := time.ParseDuration("24h")
 			end = end.Add(ad)
 		}
-		db = db.Where("end_time BETWEEN ? AND ?", start, end)
+		db = db.Where("req_date BETWEEN ? AND ?", start, end)
 	}
 
 	if err = db.Count(&total).Error; err != nil {
-		return total, list, err
+		return total, list, sum, err
 	}
-	if err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&list).Error; err != nil {
-		return total, list, err
+	if err = db.Limit(limit).Offset(offset).Order("req_date desc").Find(&list).Error; err != nil {
+		return total, list, sum, err
 	}
-	return total, list, err
+	for k, _ := range list {
+		sum += list[k].Amount
+	}
+	return total, list, sum, err
 }
 
 func GetDailyReward() (num int64, total float64, err error) {
@@ -46,13 +57,14 @@ func GetDailyReward() (num int64, total float64, err error) {
 	ad, _ := time.ParseDuration("24h")
 	end := start.Add(ad)
 
-	db := global.GVA_DB.Model(&types.Reward{}).Where("create_time BETWEEN ? AND ?", start, end).Where("status = ?", "2")
+	db := global.GVA_DB.Model(&types.UserWithdrawl{}).Where("finish_date BETWEEN ? AND ?", start, end).Where("status = ?", "2")
 	var sum []float64
-	if err = db.Count(&num).Pluck("reward", &sum).Error; err != nil {
+	if err = db.Count(&num).Pluck("amount", &sum).Error; err != nil {
 		return num, total, err
 	}
-	for _, v := range sum {
-		total = total + v
+
+	for k, _ := range sum {
+		total = total + sum[k]
 	}
 	return num, total, err
 }

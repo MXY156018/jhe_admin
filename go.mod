@@ -19,7 +19,9 @@ require (
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/lestrrat-go/strftime v1.0.5 // indirect
 	github.com/mojocn/base64Captcha v1.3.5
+	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/qiniu/api.v7/v7 v7.8.2
+	github.com/robfig/cron v1.2.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/shirou/gopsutil v3.21.9+incompatible
@@ -28,6 +30,7 @@ require (
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.31
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
 	github.com/xuri/excelize/v2 v2.4.1
+	go.uber.org/multierr v1.6.0
 	go.uber.org/zap v1.17.0
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	gorm.io/driver/mysql v1.1.2

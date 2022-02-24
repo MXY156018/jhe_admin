@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-24 17:33:53
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-24 18:00:07
+ */
 package basehandler
 
 import (
@@ -25,7 +33,6 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 				Path:    "/jwt/jsonInBlacklist",
 				Handler: JsonInBlacklistHandler(serverCtx),
 			},
-			
 		},
 	)
 }

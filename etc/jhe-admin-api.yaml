@@ -1,7 +1,8 @@
 Name: JHE_admin
 Host: 0.0.0.0
 Port: 8888
-
+CertFile: /etc/ssl/abc3.amgz.org/fullchain.crt 
+KeyFile : /etc/ssl/abc3.amgz.org/private.pem
 Auth:
   AccessSecret: ad879037-c7a4-4063-9236-6bfc35d54b7d
   AccessExpire: 86400

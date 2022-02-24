@@ -47,7 +47,8 @@ func (l *LoginLogic) Login(req types.Login) (*types.Result, error) {
 		}
 	} else {
 		return &types.Result{
-			Msg: "验证码错误",
+			Code: 7,
+			Msg:  "验证码错误",
 		}, nil
 	}
 }

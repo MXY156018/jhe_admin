@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-15 10:50:27
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-15 10:50:27
+ */
 package initialize
 
 import (
@@ -16,8 +24,13 @@ import (
 //@description: 初始化数据库并产生数据库全局变量
 //@return: *gorm.DB
 
-func Gorm(c config.Mysql) *gorm.DB {
-	return GormMysql(c)
+func Gorm(c config.Server) *gorm.DB {
+	switch c.System.DbType {
+	case "mysql":
+		return GormMysql(c)
+	default:
+		return GormMysql(c)
+	}
 }
 
 //@author: SliverHorn
@@ -25,8 +38,8 @@ func Gorm(c config.Mysql) *gorm.DB {
 //@description: 初始化Mysql数据库
 //@return: *gorm.DB
 
-func GormMysql(c config.Mysql) *gorm.DB {
-	dsn := c.Username + ":" + c.Password + "@tcp(" + c.Path + ")/" + c.Dbname + "?" + c.Config
+func GormMysql(c config.Server) *gorm.DB {
+	dsn := c.Mysql.Username + ":" + c.Mysql.Password + "@tcp(" + c.Mysql.Path + ")/" + c.Mysql.Dbname + "?" + c.Mysql.Config
 	mysqlConfig := mysql.Config{
 		DSN:                       dsn,   // DSN data source name
 		DefaultStringSize:         191,   // string 类型字段的默认长度
@@ -43,9 +56,12 @@ func GormMysql(c config.Mysql) *gorm.DB {
 		return nil
 	} else {
 		sqlDB, _ := db.DB()
-		sqlDB.SetMaxIdleConns(c.MaxIdleConns)
-		sqlDB.SetMaxOpenConns(c.MaxOpenConns)
+		sqlDB.SetMaxIdleConns(c.Mysql.MaxIdleConns)
+		sqlDB.SetMaxOpenConns(c.Mysql.MaxOpenConns)
 
+		// db.Use(dbresolver.Register(dbresolver.Config{
+		// 	Replicas: []gorm.Dialector{mysql.Open("root:m156018!@#@tcp(127.0.0.1)/game?charset=utf8mb4&parseTime=True&loc=Local")},
+		// }, "user", "wallet"))
 		return db
 	}
 }

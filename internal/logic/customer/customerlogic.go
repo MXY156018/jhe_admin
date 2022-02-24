@@ -26,7 +26,6 @@ func NewCustomerLogic(ctx context.Context, svcCtx *svc.ServiceContext) CustomerL
 }
 
 func (c *CustomerLogic) GetCustomerList(req types.CustimerSearch) (*types.Result, error) {
-	var list []types.CustomerList
 	var total int64
 	list, total, err := model.GetCustomerList(req)
 	if err != nil {
@@ -48,14 +47,14 @@ func (c *CustomerLogic) GetCustomerList(req types.CustimerSearch) (*types.Result
 	}, nil
 }
 
-func (c *CustomerLogic) ChangeCustomerStatus(req types.Customers) (*types.Result, error) {
+func (c *CustomerLogic) ChangeCustomerStatus(req types.UserReq) (*types.Result, error) {
 	msg := ""
 	if req.Status == 0 {
 		msg = "禁用"
 	} else {
 		msg = "解禁"
 	}
-	if err := global.GVA_DB.Model(&types.Customers{}).Where("id = ?", req.Id).Update("status", req.Status).Error; err != nil {
+	if err := global.GVA_DB.Table("users").Where("uid = ?", req.Uid).Update("status", req.Status).Error; err != nil {
 
 		return &types.Result{
 			Code: 7,
@@ -67,7 +66,7 @@ func (c *CustomerLogic) ChangeCustomerStatus(req types.Customers) (*types.Result
 		Msg:  msg + "成功",
 	}, nil
 }
-func (c *CustomerLogic) GetCustomerById(req types.Customers) (*types.Result, error) {
+func (c *CustomerLogic) GetCustomerById(req types.UserDetail) (*types.Result, error) {
 	user, err := model.GetCustomerById(req)
 	if err != nil {
 		return &types.Result{
@@ -81,27 +80,45 @@ func (c *CustomerLogic) GetCustomerById(req types.Customers) (*types.Result, err
 		Data: user,
 	}, nil
 }
-func (c *CustomerLogic) DeleteCustomer(req types.Customers) (*types.Result, error) {
-	if req.Id <= 0 {
-		return &types.Result{
-			Code: 7,
-			Msg:  "參數錯誤",
-		}, nil
-	}
-	err := global.GVA_DB.Delete(&types.Customers{}, req.Id).Error
+func (c *CustomerLogic) GetWallet(req types.Wallet) (*types.Result, error) {
+
+	var wallet []types.Wallet
+	db := global.GVA_DB.WithContext(context.Background())
+	err := db.Model(&wallet).Where("uid = ?", req.Uid).Find(&wallet).Error
 	if err != nil {
 		return &types.Result{
 			Code: 7,
-			Msg:  "刪除失敗" + err.Error(),
+			Msg:  "獲取失敗" + err.Error(),
 		}, nil
 	}
 	return &types.Result{
 		Code: 0,
-		Msg:  "刪除成功",
+		Msg:  "獲取成功",
+		Data: wallet,
 	}, nil
 }
-func (c *CustomerLogic) GetSubordinate(req types.CustomerList) (*types.Result, error) {
-	if req.Id <= 0 {
+
+// func (c *CustomerLogic) DeleteCustomer(req types.Customers) (*types.Result, error) {
+// 	if req.Id <= 0 {
+// 		return &types.Result{
+// 			Code: 7,
+// 			Msg:  "參數錯誤",
+// 		}, nil
+// 	}
+// 	err := global.GVA_DB.Delete(&types.Customers{}, req.Id).Error
+// 	if err != nil {
+// 		return &types.Result{
+// 			Code: 7,
+// 			Msg:  "刪除失敗" + err.Error(),
+// 		}, nil
+// 	}
+// 	return &types.Result{
+// 		Code: 0,
+// 		Msg:  "刪除成功",
+// 	}, nil
+// }
+func (c *CustomerLogic) GetSubordinate(req types.CustimerSearch) (*types.Result, error) {
+	if req.Uid <= 0 {
 		// global.GVA_LOG.Error("获取失败!", zap.Any("err", err))
 		return &types.Result{
 			Code: 7,
@@ -170,7 +187,7 @@ func (c *CustomerLogic) GetCustomerOperator(req types.OperateRecord) (*types.Res
 func (c *CustomerLogic) GetHomeData() (*types.Result, error) {
 
 	var userNum int64
-	err := global.GVA_DB.Model(&types.Customers{}).Count(&userNum).Error
+	err := global.GVA_DB.Model(&types.User{}).Where("is_bot = 0").Count(&userNum).Error
 	if err != nil {
 		global.GVA_LOG.Error("服務器內部錯誤", zap.Any("err", err))
 		return &types.Result{

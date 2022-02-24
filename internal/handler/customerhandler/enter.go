@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-15 15:13:40
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-23 14:36:01
+ */
 package customerhandler
 
 import (
@@ -13,25 +21,24 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 			[]rest.Middleware{serverCtx.Jwt, serverCtx.Casbin, serverCtx.OperateRecord},
 			[]rest.Route{
 				{
+					//获取用户列表
 					Method:  http.MethodPost,
 					Path:    "/customer/getCustomerList",
 					Handler: CustomerListHandler(serverCtx),
 				},
 				{
+					//改变用户状态
 					Method:  http.MethodPost,
 					Path:    "/customer/changeCustomerStatus",
 					Handler: CustomerStatusHandler(serverCtx),
 				},
 				{
+					//按id获取用户信息
 					Method:  http.MethodPost,
 					Path:    "/customer/getCustomerById",
 					Handler: GetCustomerByIdHandler(serverCtx),
 				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/customer/deleteCustomerById",
-					Handler: DeleteCustomerByIdHandler(serverCtx),
-				},
+
 				{
 					Method:  http.MethodPost,
 					Path:    "/customer/getSubordinate",
@@ -60,6 +67,11 @@ func RegisterHandlersAutocode1(engine *rest.Server, serverCtx *svc.ServiceContex
 					Method:  http.MethodGet,
 					Path:    "/home/homeData",
 					Handler: HomeDataHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/customer/getUserWallet",
+					Handler: GetUserWallet(serverCtx),
 				},
 			}...,
 		),

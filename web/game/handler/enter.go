@@ -12,7 +12,6 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Game},
 			[]rest.Route{
-
 				{
 					Method:  http.MethodPost,
 					Path:    "/user/userRegister",

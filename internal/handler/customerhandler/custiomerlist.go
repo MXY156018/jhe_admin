@@ -28,7 +28,7 @@ func CustomerListHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 }
 func CustomerStatusHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Customers
+		var req types.UserReq
 		if err := utils.Bind(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
@@ -44,7 +44,7 @@ func CustomerStatusHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 }
 func GetCustomerByIdHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Customers
+		var req types.UserDetail
 		if err := utils.Bind(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
@@ -58,16 +58,15 @@ func GetCustomerByIdHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		}
 	}
 }
-
-func DeleteCustomerByIdHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+func GetUserWallet(ctx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Customers
-		if err := utils.Bind(r, &req); err != nil {
+		var req types.Wallet
+		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
 		l := customer.NewCustomerLogic(r.Context(), ctx)
-		resp, err := l.DeleteCustomer(req)
+		resp, err := l.GetWallet(req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
@@ -75,9 +74,26 @@ func DeleteCustomerByIdHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		}
 	}
 }
+
+// func DeleteCustomerByIdHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+// 	return func(w http.ResponseWriter, r *http.Request) {
+// 		var req types.Customers
+// 		if err := utils.Bind(r, &req); err != nil {
+// 			httpx.Error(w, err)
+// 			return
+// 		}
+// 		l := customer.NewCustomerLogic(r.Context(), ctx)
+// 		resp, err := l.DeleteCustomer(req)
+// 		if err != nil {
+// 			httpx.Error(w, err)
+// 		} else {
+// 			httpx.OkJson(w, resp)
+// 		}
+// 	}
+// }
 func GetSubordinateHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.CustomerList
+		var req types.CustimerSearch
 		if err := utils.Bind(r, &req); err != nil {
 			httpx.Error(w, err)
 			return

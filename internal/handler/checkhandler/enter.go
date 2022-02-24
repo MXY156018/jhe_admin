@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2022-02-18 23:13:46
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-20 15:56:24
+ */
 package checkhandler
 
 import (
@@ -16,6 +24,21 @@ func RegisterHandlersAutocode(engine *rest.Server, serverCtx *svc.ServiceContext
 					Method:  http.MethodPost,
 					Path:    "/check/passCheck",
 					Handler: PassCheckHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/check/backCheck",
+					Handler: BackCheckHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/check/withdraw/fallback",
+					Handler: WithdrawFallback(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/check/withdraw/markhandle",
+					Handler: WithdrawFailManulHandle(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,

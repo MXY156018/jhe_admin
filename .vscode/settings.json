@@ -1,0 +1,19 @@
+{
+    // 文件头部注释
+    "fileheader.customMade": {
+        "Descripttion": "",
+        "version": "",
+        "Author": "sueRimn",
+        "Date": "Do not edit",
+        "LastEditors": "sueRimn",
+        "LastEditTime": "Do not Edit"
+    },
+    //函数注释
+    "fileheader.cursorMode": {
+        "name": "MXY",
+        "test": "test font",
+        "msg": "",
+        "param": "",
+        "return": ""
+    }
+}
